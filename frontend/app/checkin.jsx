@@ -18,7 +18,7 @@ export default function CheckInScreen() {
   const [mood, setMood] = useState(5);
   const [stress, setStress] = useState(5);
   const [energy, setEnergy] = useState(5);
-  const [sleepHours, setSleepHours] = useState("");
+  const [sleepHours, setSleepHours] = useState(0.0);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
 
