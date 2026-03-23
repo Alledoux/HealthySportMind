@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/dashboardStyles";
 import { fetchRSS } from "../hooks/fetchRSS";
 import { useRouter } from "expo-router";
+import { API_BASE_URL } from "../config/api";
 
 
 export default function Dashboard({ user, profile }) {
@@ -16,7 +17,7 @@ export default function Dashboard({ user, profile }) {
   async function loadLastCheckIn() {
         try {
           const token = await AsyncStorage.getItem("accessToken");
-          const res = await fetch("http://127.0.0.1:8000/api/checkins/last/", {
+          const res = await fetch(`${API_BASE_URL}/api/checkins/last/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -32,7 +33,7 @@ export default function Dashboard({ user, profile }) {
     async function loadCheckIn() {
       try {
         const token = await AsyncStorage.getItem("accessToken");
-        const res = await fetch("http://127.0.0.1:8000/api/checkins/today/", {
+        const res = await fetch(`${API_BASE_URL}/api/checkins/today/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

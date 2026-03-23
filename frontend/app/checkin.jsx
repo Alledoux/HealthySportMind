@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_BASE_URL } from "../config/api";
 import {
   View,
   Text,
@@ -28,7 +29,7 @@ export default function CheckInScreen() {
 
       const token = await AsyncStorage.getItem("accessToken");
 
-      const res = await fetch("http://127.0.0.1:8000/api/checkins/submit/", {
+      const res = await fetch(`${API_BASE_URL}/api/checkins/submit/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

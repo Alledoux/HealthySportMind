@@ -1,8 +1,10 @@
+import { API_BASE_URL } from "../config/api";
+
 export async function fetchRSS(feedUrl) {
   const encoded = encodeURIComponent(feedUrl);
 
   const res = await fetch(
-    `http://127.0.0.1:8000/api/rss/?url=${encoded}`
+   `${API_BASE_URL}/api/rss/?url=${encoded}`
   );
 
   const data = await res.json();

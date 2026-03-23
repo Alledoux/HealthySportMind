@@ -35,7 +35,10 @@ export default function LoginScreen() {
 
       router.replace("/dashboard");
 
-    } catch {
+        } catch (err) {
+      console.log("LOGIN ERROR FULL:", err);
+      console.log("LOGIN ERROR MESSAGE:", err?.message);
+      console.log("LOGIN ERROR RESPONSE:", err?.response?.data);
       setError("Network error. Try again.");
     }
   }
