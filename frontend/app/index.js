@@ -25,11 +25,14 @@ export default function LoginScreen() {
       const data = await loginUser(email, password);
       console.log("LOGIN RESPONSE:", data);
 
-      if (data.error) {
+            if (data.error) {
         setError(data.error);
         return;
       }
-      AsyncStorage.clear();
+
+      await AsyncStorage.removeItem("accessToken");
+      await AsyncStorage.removeItem("refreshToken");
+
       await AsyncStorage.setItem("accessToken", data.access);
       await AsyncStorage.setItem("refreshToken", data.refresh);
 
