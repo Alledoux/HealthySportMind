@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://skookum-verona-boxily.ngrok-free.dev";
+export const API_BASE_URL = "https://healthysportmind-git-358530944608.us-south1.run.app";
