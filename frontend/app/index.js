@@ -18,27 +18,31 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // async function handleLogin() {
+  //   setError("");
+
+  //   try {
+  //     const data = await loginUser(email, password);
+  //     console.log("LOGIN RESPONSE:", data);
+
+  //     if (data.error) {
+  //       setError(data.error);
+  //       return;
+  //     }
+  //     AsyncStorage.clear();
+  //     await AsyncStorage.setItem("accessToken", data.access);
+  //     await AsyncStorage.setItem("refreshToken", data.refresh);
+
+  //     router.replace("/dashboard");
+
+  //   } catch {
+  //     setError("Network error. Try again.");
+  //   }
+  // }
+
   async function handleLogin() {
-    setError("");
-
-    try {
-      const data = await loginUser(email, password);
-      console.log("LOGIN RESPONSE:", data);
-
-      if (data.error) {
-        setError(data.error);
-        return;
-      }
-      AsyncStorage.clear();
-      await AsyncStorage.setItem("accessToken", data.access);
-      await AsyncStorage.setItem("refreshToken", data.refresh);
-
-      router.replace("/dashboard");
-
-    } catch {
-      setError("Network error. Try again.");
-    }
-  }
+  router.replace("/dashboard");
+}
 
   return (
     <ScrollView
