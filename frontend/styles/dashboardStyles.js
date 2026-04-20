@@ -4,24 +4,24 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f7fa",
-    padding: 20,
+    padding: 16,
   },
 
   topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginBottom: 24,
+    gap: 12,
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
   },
 
   card: {
     backgroundColor: "white",
-    padding: 20,
+    padding: 16,
     borderRadius: 12,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -31,29 +31,29 @@ export default StyleSheet.create({
   },
 
   welcome: {
-    fontSize: 24,
-    fontWeight: "700",
-    marginBottom: 10,
-  },
+  fontSize: 18,
+  fontWeight: "700",
+  marginBottom: 8,
+  lineHeight: 24,
+},
 
   subtitle: {
     color: "#6b7280",
-    marginBottom: 30,
+    marginBottom: 24,
   },
 
   grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 20,
+    flexDirection: "column",
+    gap: 16,
   },
 
   infoCard: {
     backgroundColor: "#f9fafb",
-    padding: 20,
+    padding: 16,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#e5e7eb",
-    width: "48%",
+    width: "100%",
   },
 
   cardTitle: {
@@ -65,24 +65,26 @@ export default StyleSheet.create({
     fontSize: 18,
   },
 
-  cardSubtitle: {
-    color: "#6b7280",
-  },
+ cardSubtitle: {
+  color: "#6b7280",
+  fontSize: 13,
+  lineHeight: 18,
+},
 
   newsCard: {
     marginTop: 10,
     backgroundColor: "white",
-    padding: 20,
+    padding: 16,
     borderRadius: 12,
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 2,
-    marginBottom: 30,
+    marginBottom: 24,
   },
 
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "700",
     marginBottom: 15,
   },
@@ -124,48 +126,52 @@ export default StyleSheet.create({
     color: "white",
     fontWeight: "600",
   },
-  
+
   imageWrapper: {
-  width: "50%",
-  height: 200,
-  borderRadius: 10,
-  overflow: "hidden",
-  marginBottom: 10,
-},
+    width: "100%",
+    height: 180,
+    borderRadius: 10,
+    overflow: "hidden",
+    marginBottom: 10,
+  },
+
   logoutButton: {
-      backgroundColor: "#ef4444",
-      paddingVertical:10,
-      paddingHorizontal: 18,
-      borderRadius: 6,
-    },
-  logoutText: {  
-      color: "white",
-      fontWeight: "800",
-    },
+    backgroundColor: "#ef4444",
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 6,
+  },
+
+  logoutText: {
+    color: "white",
+    fontWeight: "800",
+  },
+
   checkInButton: {
   backgroundColor: "#007AFF",
-  paddingVertical: 10,
-  paddingHorizontal: 12,
-  borderRadius: 8,
+  paddingVertical: 12,
+  paddingHorizontal: 14,
+  borderRadius: 10,
   marginTop: 6,
   alignSelf: "flex-start",
 },
-checkInButtonText: {
-  color: "white",
-  fontWeight: "600",
-  fontSize: 14,
-},
+
+  checkInButtonText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+
   settingsButton: {
-  backgroundColor: "#4B5563", // slate gray
-  paddingVertical: 8,
-  paddingHorizontal: 14,
-  borderRadius: 8,
-},
+    backgroundColor: "#4B5563",
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+  },
 
-settingsText: {
-  color: "white",
-  fontWeight: "600",
-  fontSize: 14,
-},
-
+  settingsText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 14,
+  },
 });

@@ -43,7 +43,6 @@ export default function Dashboard({ user, profile }) {
     }
   }
 
-
   async function loadCheckIn() {
     try {
       const data = await getTodayCheckIn();
@@ -74,6 +73,7 @@ export default function Dashboard({ user, profile }) {
         setLoading(false);
       }
     }
+
     async function loadStoredData() {
       const storedProfile = await AsyncStorage.getItem("profile");
       const storedUser = await AsyncStorage.getItem("user");
@@ -89,6 +89,7 @@ export default function Dashboard({ user, profile }) {
     loadCheckIn();
     loadLastCheckIn();
   }, []);
+
   useEffect(() => {
     if (isFocused) {
       loadCheckIn();
@@ -97,7 +98,6 @@ export default function Dashboard({ user, profile }) {
       loadPerformanceLogs();
     }
   }, [isFocused]);
-
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("accessToken");
@@ -111,22 +111,36 @@ export default function Dashboard({ user, profile }) {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Image
             source={logo}
-            style={{ width: 40, height: 40 }}
+            style={{ width: 36, height: 36 }}
             resizeMode="contain"
           />
           <Text style={styles.title}>HealthySportMind</Text>
         </View>
 
-        <View style={{ flexDirection: "row", gap: 10 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            marginTop: 10,
+          }}
+        >
           <TouchableOpacity
-            style={styles.settingsButton}
+            style={[
+              styles.settingsButton,
+              { flex: 1, marginRight: 6, alignItems: "center" },
+            ]}
             onPress={() => router.push("/settings")}
           >
             <Text style={styles.settingsText}>Settings</Text>
           </TouchableOpacity>
 
-
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <TouchableOpacity
+            style={[
+              styles.logoutButton,
+              { flex: 1, marginLeft: 6, alignItems: "center" },
+            ]}
+            onPress={handleLogout}
+          >
             <Text style={styles.logoutText}>Log Out</Text>
           </TouchableOpacity>
         </View>
@@ -144,7 +158,6 @@ export default function Dashboard({ user, profile }) {
 
         {/* Info Grid */}
         <View style={styles.grid}>
-          {/* Card 1 */}
           <View style={styles.infoCard}>
             <Text style={styles.cardTitle}>Your Sport</Text>
             <Text style={styles.cardValue}>
@@ -152,9 +165,8 @@ export default function Dashboard({ user, profile }) {
             </Text>
           </View>
 
-          {/* Daily Check-In */}
           <View style={styles.infoCard}>
-            <Text style={styles.cardTitle}>Daily Check‑In</Text>
+            <Text style={styles.cardTitle}>Daily Check-In</Text>
             {todayCheckIn?.exists ? (
               <View>
                 <Text style={styles.cardSubtitle}>You checked in today!</Text>
@@ -171,15 +183,14 @@ export default function Dashboard({ user, profile }) {
                 onPress={() => router.push("/checkin")}
               >
                 <Text style={styles.checkInButtonText}>
-                  Complete today’s check‑in
+                  Complete today’s check-in
                 </Text>
               </TouchableOpacity>
             )}
           </View>
 
-          {/* Last Check-In */}
           <View style={styles.infoCard}>
-            <Text style={styles.cardTitle}>Last Check‑In</Text>
+            <Text style={styles.cardTitle}>Last Check-In</Text>
 
             {lastCheckIn?.exists ? (
               <>
@@ -203,15 +214,12 @@ export default function Dashboard({ user, profile }) {
                     {String(lastCheckIn.checkin.post_message)}
                   </Text>
                 ) : null}
-
-
               </>
             ) : (
-              <Text style={styles.cardSubtitle}>No check‑ins yet</Text>
+              <Text style={styles.cardSubtitle}>No check-ins yet</Text>
             )}
           </View>
 
-          {/* Streaks */}
           <View style={styles.infoCard}>
             <Text style={styles.cardTitle}>Streaks</Text>
             <Text style={styles.cardSubtitle}>
@@ -219,7 +227,6 @@ export default function Dashboard({ user, profile }) {
             </Text>
           </View>
 
-          {/* Performance Tracker Button */}
           <View style={styles.infoCard}>
             <Text style={styles.cardTitle}>Performance Tracker</Text>
             <Text style={styles.cardSubtitle}>
@@ -229,15 +236,13 @@ export default function Dashboard({ user, profile }) {
               style={[styles.checkInButton, { marginTop: 10 }]}
               onPress={() => router.push("/performance-tracker")}
             >
-              <Text style={styles.checkInButtonText}>
-                Log Performance
-              </Text>
+              <Text style={styles.checkInButtonText}>Log Performance</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
 
-      {/* --- PERFORMANCE CHART SECTION --- */}
+      {/* PERFORMANCE CHART SECTION */}
       <View style={styles.newsCard}>
         <Text style={styles.sectionTitle}>Mood & Performance Trend</Text>
         {performanceLogs && performanceLogs.length > 0 ? (
@@ -253,33 +258,44 @@ export default function Dashboard({ user, profile }) {
               Depressed: "#708090",
               Focused: "#32CD32",
               Excited: "#FF4500",
-              Unspecified: "#CCC"
+              Unspecified: "#CCC",
             };
 
             const stackData = performanceLogs.map((log) => {
               const totalRating = log.performance_rating || 0;
-              const moods = Array.isArray(log.moods) && log.moods.length > 0 ? log.moods : ["Unspecified"];
+              const moods =
+                Array.isArray(log.moods) && log.moods.length > 0
+                  ? log.moods
+                  : ["Unspecified"];
               const stackHeight = totalRating / moods.length;
 
               return {
                 stacks: moods.map((m) => ({
                   value: stackHeight,
-                  color: moodColors[m] || "#CCC"
+                  color: moodColors[m] || "#CCC",
                 })),
-                label: new Date(log.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+                label: new Date(log.created_at).toLocaleDateString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                }),
               };
             });
 
-            const reportedMoods = Array.from(new Set(
-              performanceLogs.reduce((acc, log) => {
-                const moods = Array.isArray(log.moods) && log.moods.length > 0 ? log.moods : ["Unspecified"];
-                return acc.concat(moods);
-              }, [])
-            ));
+            const reportedMoods = Array.from(
+              new Set(
+                performanceLogs.reduce((acc, log) => {
+                  const moods =
+                    Array.isArray(log.moods) && log.moods.length > 0
+                      ? log.moods
+                      : ["Unspecified"];
+                  return acc.concat(moods);
+                }, [])
+              )
+            );
 
-            const chartLegendData = reportedMoods.map(mood => ({
+            const chartLegendData = reportedMoods.map((mood) => ({
               name: mood,
-              color: moodColors[mood] || "#CCC"
+              color: moodColors[mood] || "#CCC",
             }));
 
             return (
@@ -299,11 +315,36 @@ export default function Dashboard({ user, profile }) {
                     />
                   </View>
                 </ScrollView>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: 20 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "flex-start",
+                    marginTop: 20,
+                  }}
+                >
                   {chartLegendData.map((legendItem, index) => (
-                    <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 15, marginBottom: 10 }}>
-                      <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: legendItem.color, marginRight: 5 }} />
-                      <Text style={{ fontSize: 12, color: '#333' }}>{legendItem.name}</Text>
+                    <View
+                      key={index}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginRight: 15,
+                        marginBottom: 10,
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: 6,
+                          backgroundColor: legendItem.color,
+                          marginRight: 5,
+                        }}
+                      />
+                      <Text style={{ fontSize: 12, color: "#333" }}>
+                        {legendItem.name}
+                      </Text>
                     </View>
                   ))}
                 </View>
@@ -311,12 +352,15 @@ export default function Dashboard({ user, profile }) {
             );
           })()
         ) : (
-          <Text style={styles.cardSubtitle}>Log your performance to see the chart.</Text>
+          <Text style={styles.cardSubtitle}>
+            Log your performance to see the chart.
+          </Text>
         )}
       </View>
+
       {/* Long-Term Insights */}
       <View style={styles.infoCard}>
-        <Text style={styles.cardTitle}>Long‑Term Insights</Text>
+        <Text style={styles.cardTitle}>Long-Term Insights</Text>
         <Text style={styles.cardSubtitle}>
           View your weekly and monthly mental performance trends.
         </Text>
